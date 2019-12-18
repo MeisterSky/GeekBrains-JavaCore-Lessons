@@ -1,8 +1,8 @@
 package Lesson1;
 
-abstract class ObstacleCourse {
-    private double height = 1.0;
-    private double length = 1.0;
+abstract class Obstacle {
+    private double height;
+    private double length;
 
     public double getHeight() {
         return height;

@@ -1,6 +1,6 @@
 package Lesson1;
 
-public class Wall extends ObstacleCourse {
+public class Wall extends Obstacle {
 
     private double height;
 
