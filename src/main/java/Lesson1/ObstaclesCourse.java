@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 
-class ObstaclesCourse extends Obstacles {
+class ObstaclesCourse {
     private static Obstacles[] ourInstance = null;
 
     public static Obstacles[] getInstance() {
@@ -20,13 +20,25 @@ class ObstaclesCourse extends Obstacles {
 
     private static void createObstacleCourse() {
 
-        double lengthOfTrack = 100.0;
+        double minLengthOfTrack = 100.00;
 
-        double defaultHeightOfWall = 0.5;
+        double maxLengthOfTrack = 42000.0;
+
+        double defaultLengthOfTrack = 100.0;
+
+        double lengthOfTrack = defaultLengthOfTrack;
+
+        double minHeightOfWall = 0.1;
+
+        double maxHeightOfWall = 2.5;
+
+        double defaultHeightOfWall = 0.1;
 
         double heightOfWall = defaultHeightOfWall;
 
-        int amountOfObstacles = 1;
+        int defaultAmountOfObstacles = 1;
+
+        int amountOfObstacles = defaultAmountOfObstacles;
 
         int numberOfObstacles = 1;
 
@@ -37,12 +49,12 @@ class ObstaclesCourse extends Obstacles {
         try {
 
             while (true) {
-                System.out.println("Введите общую длину полосы препятствий от 100 до 1000 метров или нажмите \"Enter\" для установки значения по умолчанию (" + lengthOfTrack + " м.)");
+                System.out.println("Введите общую длину полосы препятствий от " + minLengthOfTrack + " до " + maxLengthOfTrack + " метров или нажмите \"Enter\" для установки значения по умолчанию (" + defaultLengthOfTrack + " м.)");
                 String s = reader.readLine();
                 if (s.equals("")) {
                     System.out.println("Задано значение по умолчанию: " + lengthOfTrack + " м.");
                     break;
-                } else if (isDouble(s) && Double.parseDouble(s) >= 100 && Double.parseDouble(s) <= 1000) {
+                } else if (isDouble(s) && Double.parseDouble(s) >= minLengthOfTrack && Double.parseDouble(s) <= maxLengthOfTrack) {
                     lengthOfTrack = Double.parseDouble(s);
                     break;
                 } else {
@@ -51,10 +63,10 @@ class ObstaclesCourse extends Obstacles {
             }
 
             while (true) {
-                System.out.println("Введите количество препятствий от 0 до " + ((int) (lengthOfTrack / 10) - 1) + " шт. или нажмите \"Enter\" для установки значения по умолчанию (" + amountOfObstacles + " шт.)");
+                System.out.println("Введите количество препятствий от 0 до " + ((int) (lengthOfTrack / 10) - 1) + " шт. или нажмите \"Enter\" для установки значения по умолчанию (" + defaultAmountOfObstacles + " шт.)");
                 String s = reader.readLine();
                 if (s.equals("")) {
-                    System.out.println("Задано значение по умолчанию: " + amountOfObstacles + " шт.");
+                    System.out.println("Задано значение по умолчанию: " + defaultAmountOfObstacles + " шт.");
                     break;
                 } else if (isInteger(s) && Integer.parseInt(s) >= 0 && Integer.parseInt(s) <= ((int) (lengthOfTrack / 10) - 1)) {
                     amountOfObstacles = Integer.parseInt(s);
@@ -73,16 +85,16 @@ class ObstaclesCourse extends Obstacles {
 
                     while (true) {
                         if (1 == amountOfObstacles) {
-                            System.out.println("Введите высоту препятствия от 0.5 до 2.5 метров или нажмите \"Enter\" для установки значения по умолчанию (" + defaultHeightOfWall + " м.)");
+                            System.out.println("Введите высоту препятствия от " + minHeightOfWall + " до " + maxHeightOfWall + " метров или нажмите \"Enter\" для установки значения по умолчанию (" + defaultHeightOfWall + " м.)");
                         } else {
-                            System.out.println("Введите высоту препятствия №" + numberOfObstacles + " от 0.5 до 2.5 метров или нажмите \"Enter\" для установки значения по умолчанию (" + defaultHeightOfWall + " м.)");
+                            System.out.println("Введите высоту препятствия № " + numberOfObstacles + " от " + minHeightOfWall + " до " + maxHeightOfWall + " метров или нажмите \"Enter\" для установки значения по умолчанию (" + defaultHeightOfWall + " м.)");
                         }
 
                         String s = reader.readLine();
                         if (s.equals("")) {
                             System.out.println("Задано значение по умолчанию: " + defaultHeightOfWall + " м.");
                             break;
-                        } else if (isDouble(s) && Double.parseDouble(s) >= 0.5 && Double.parseDouble(s) <= 2.5) {
+                        } else if (isDouble(s) && Double.parseDouble(s) >= minHeightOfWall && Double.parseDouble(s) <= maxHeightOfWall) {
                             heightOfWall = Double.parseDouble(s);
                             break;
                         } else {
@@ -93,7 +105,7 @@ class ObstaclesCourse extends Obstacles {
                     obstacles[++i] = new Wall(heightOfWall);
                 }
 
-                obstacles[obstacles.length - 1] = new RunningTrack(lengthOfTrack - ((lengthOfTrack / (amountOfObstacles + 1)) * amountOfObstacles) - (amountOfObstacles * 0.1)); // толщина препятствия 0.1 м.
+                obstacles[obstacles.length - 1] = new RunningTrack(lengthOfTrack - ((lengthOfTrack / (amountOfObstacles + 1)) * amountOfObstacles) - (amountOfObstacles * Wall.length));
 
             } else {
                 obstacles[0] = new RunningTrack(lengthOfTrack);
@@ -114,7 +126,7 @@ class ObstaclesCourse extends Obstacles {
                 }
             }
 
-            System.out.print(" FINISH");
+            System.out.println(" FINISH");
             System.out.println();
 
             ourInstance = obstacles;
