@@ -1,6 +1,6 @@
 package Lesson1;
 
-abstract class Obstacle {
+abstract class Obstacles {
     private double height;
     private double length;
 

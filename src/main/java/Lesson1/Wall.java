@@ -1,9 +1,8 @@
 package Lesson1;
 
-public class Wall extends Obstacle {
+public class Wall extends Obstacles {
 
     private double height;
-
 
     @Override
     public double getHeight() {

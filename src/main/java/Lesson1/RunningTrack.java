@@ -1,9 +1,10 @@
 package Lesson1;
 
-public class RunningTrack extends Obstacle {
+public class RunningTrack extends Obstacles {
 
     private double length;
 
+    @Override
     public double getLength() {
         return length;
     }
